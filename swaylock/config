@@ -1,0 +1,40 @@
+# Lock screen indicator — styled to match the green/dark palette
+font=JetBrainsMono Nerd Font
+font-size=20
+indicator-radius=80
+indicator-thickness=8
+show-failed-attempts
+
+# Colours (RRGGBBAA)
+color=171916ff
+
+inside-color=171916cc
+inside-clear-color=171916cc
+inside-caps-lock-color=171916cc
+inside-ver-color=171916cc
+inside-wrong-color=171916cc
+
+ring-color=21241fff
+ring-clear-color=7ba35aff
+ring-caps-lock-color=e0b07aff
+ring-ver-color=b8db87ff
+ring-wrong-color=e67e80ff
+
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+key-hl-color=b8db87ff
+bs-hl-color=e67e80ff
+caps-lock-key-hl-color=e0b07aff
+caps-lock-bs-hl-color=e67e80ff
+
+separator-color=00000000
+
+text-color=d3d3d3ff
+text-clear-color=d3d3d3ff
+text-caps-lock-color=e0b07aff
+text-ver-color=b8db87ff
+text-wrong-color=e67e80ff

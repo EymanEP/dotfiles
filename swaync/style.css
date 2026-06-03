@@ -1,0 +1,246 @@
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+}
+
+/* ── Control center panel ── */
+
+.control-center {
+  background-color: rgba(23, 25, 22, 0.96);
+  border-radius: 14px;
+  border: 1px solid #2e3329;
+  color: #d3d3d3;
+  padding: 8px;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.4;
+}
+
+/* ── Title + clear-all ── */
+
+.widget-title {
+  color: #b8db87;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 8px 12px 4px;
+}
+
+.widget-title > button {
+  font-size: 12px;
+  color: #606a5a;
+  background: #21241f;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  transition: all 0.15s;
+}
+
+.widget-title > button:hover {
+  background: #2e3329;
+  color: #d3d3d3;
+}
+
+/* ── Do Not Disturb toggle ── */
+
+.widget-dnd {
+  padding: 4px 12px 8px;
+  border-bottom: 1px solid #21241f;
+  margin-bottom: 6px;
+}
+
+.widget-dnd > switch {
+  border-radius: 20px;
+  background: #21241f;
+  border: 1px solid #2e3329;
+}
+
+.widget-dnd > switch:checked {
+  background: #7ba35a;
+}
+
+.widget-dnd > switch slider {
+  background: #d3d3d3;
+  border-radius: 20px;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+/* ── Volume / Backlight sliders ── */
+
+.widget-volume,
+.widget-backlight {
+  padding: 6px 12px;
+  color: #d3d3d3;
+}
+
+.widget-volume label,
+.widget-backlight label {
+  color: #b8db87;
+  min-width: 20px;
+}
+
+scale trough {
+  background: #21241f;
+  border-radius: 4px;
+  min-height: 6px;
+}
+
+scale highlight {
+  background: #7ba35a;
+  border-radius: 4px;
+}
+
+scale slider {
+  background: #b8db87;
+  border-radius: 50%;
+  min-width: 14px;
+  min-height: 14px;
+  margin: -4px;
+}
+
+/* ── Buttons grid ── */
+
+.widget-buttons-grid {
+  padding: 8px 12px;
+  border-top: 1px solid #21241f;
+  border-bottom: 1px solid #21241f;
+  margin: 4px 0;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  background: #21241f;
+  color: #8a9a7a;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  min-width: 52px;
+  min-height: 52px;
+  transition: all 0.15s;
+  margin: 3px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: #2e3329;
+  color: #d3d3d3;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button.active {
+  background: #7ba35a;
+  color: #171916;
+}
+
+/* ── MPRIS player ── */
+
+.widget-mpris {
+  padding: 8px 12px;
+}
+
+.widget-mpris-player {
+  background: #1e211c;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 4px 0;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  color: #d3d3d3;
+  font-size: 13px;
+}
+
+.widget-mpris-subtitle {
+  color: #8a9a7a;
+  font-size: 12px;
+}
+
+.widget-mpris-album-art {
+  border-radius: 8px;
+}
+
+/* ── Notification popup (toast) ── */
+
+.notification-row {
+  outline: none;
+  margin: 0;
+  padding: 2px 0;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+  opacity: 1;
+  background: transparent;
+}
+
+.notification-row .close-button {
+  background: transparent;
+  color: #606a5a;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 6px;
+  transition: all 0.15s;
+}
+
+.notification-row .close-button:hover {
+  background: #e67e80;
+  color: #171916;
+}
+
+.notification {
+  background-color: rgba(23, 25, 22, 0.95);
+  border: 1px solid #2e3329;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 4px;
+  color: #d3d3d3;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 4px 0;
+}
+
+.notification-default-action {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.notification-default-action:hover {
+  background: #1e211c;
+}
+
+.summary {
+  font-size: 13px;
+  font-weight: bold;
+  color: #d3d3d3;
+}
+
+.time {
+  font-size: 11px;
+  color: #606a5a;
+}
+
+.body {
+  font-size: 12px;
+  color: #8a9a7a;
+  margin-top: 2px;
+}
+
+.app-icon {
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.critical > .notification {
+  border-color: #e67e80;
+}
+
+.low > .notification {
+  border-color: #21241f;
+}

@@ -1,127 +1,157 @@
 # Dotfiles
 
-Config for **Neovim** (LazyVim), **tmux**, and **Kitty**.
+Config for **Sway** (WM), **Waybar**, **swaync**, **swaylock**, **Neovim** (LazyVim), **tmux**, and **Kitty**.
 
 ```
 dotfiles/
-├── nvim/       → ~/.config/nvim/
-├── tmux/       → ~/.config/tmux/ (or ~/.tmux.conf)
-└── kitty/      → ~/.config/kitty/
+├── sway/           → ~/.config/sway/
+│   ├── config
+│   └── scripts/
+│       ├── screenshot.sh
+│       └── lock.sh
+├── waybar/         → ~/.config/waybar/
+│   ├── config
+│   └── style.css
+├── swaync/         → ~/.config/swaync/
+│   ├── config.json
+│   └── style.css
+├── swaylock/       → ~/.config/swaylock/
+│   └── config
+├── nvim/           → ~/.config/nvim/
+├── tmux/           → ~/.config/tmux/ (or ~/.tmux.conf)
+└── kitty/          → ~/.config/kitty/
 ```
 
 ---
 
 ## 1. Install Dependencies
 
-### All platforms — install these first:
+### Arch / CachyOS
 
-| Tool | Purpose | Ubuntu/Debian | Arch | macOS |
-|------|---------|--------------|------|-------|
-| `git` | Required by everything | `apt install git` | `pacman -S git` | built-in |
-| `ripgrep` | Live grep (Neovim) | `apt install ripgrep` | `pacman -S ripgrep` | `brew install ripgrep` |
-| `fd` | File finder (Neovim) | `apt install fd-find` | `pacman -S fd` | `brew install fd` |
-| `node` + `npm` | LSPs via Mason | `apt install nodejs npm` | `pacman -S nodejs npm` | `brew install node` |
-| `gcc` + `make` | Treesitter parsers | `apt install gcc make` | `pacman -S gcc make` | Xcode CLT |
-| `python3` | Some LSPs/plugins | `apt install python3` | `pacman -S python` | built-in |
-| Nerd Font | Icons in terminal | see below | see below | see below |
-
----
-
-## 2. Install Neovim
-
-**Ubuntu/Debian** (system repo is often outdated):
 ```bash
-# AppImage — easiest, always latest stable
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-chmod +x nvim-linux-x86_64.appimage
-sudo mv nvim-linux-x86_64.appimage /usr/local/bin/nvim
+# Core WM stack
+sudo pacman -S sway swaybg swayidle swaylock waybar swaync \
+               fuzzel kitty
+
+# Wayland utilities
+sudo pacman -S grim slurp wl-clipboard cliphist \
+               xdg-desktop-portal xdg-desktop-portal-gtk \
+               imagemagick brightnessctl
+
+# System integration
+sudo pacman -S polkit-gnome pipewire wireplumber \
+               pavucontrol blueman
+
+# Terminal / editor
+sudo pacman -S neovim tmux
 ```
 
-**Arch:**
-```bash
-sudo pacman -S neovim
-```
+### Font
 
-**macOS:**
+All configs use **JetBrainsMono Nerd Font**:
+
 ```bash
-brew install neovim
+sudo pacman -S ttf-jetbrains-mono-nerd
 ```
 
 ---
 
-## 3. Install tmux
-
-**Ubuntu/Debian:**
-```bash
-sudo apt install tmux
-```
-
-**Arch:**
-```bash
-sudo pacman -S tmux
-```
-
-**macOS:**
-```bash
-brew install tmux
-```
-
----
-
-## 4. Install Kitty
-
-**Linux:**
-```bash
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-```
-
-**macOS:**
-```bash
-brew install --cask kitty
-```
-
----
-
-## 5. Install a Nerd Font
-
-Icons in Neovim and tmux won't render without a Nerd Font in your terminal.
-
-1. Download from https://www.nerdfonts.com/font-downloads (JetBrainsMono or FiraCode recommended)
-2. Install the font and set it in your terminal emulator settings
-
----
-
-## 6. Apply This Config
+## 2. Apply the Config
 
 ```bash
-# Back up anything existing
-mv ~/.config/nvim   ~/.config/nvim.bak   2>/dev/null
-mv ~/.config/kitty  ~/.config/kitty.bak  2>/dev/null
-mv ~/.tmux.conf     ~/.tmux.conf.bak     2>/dev/null
+git clone <repo-url> ~/dotfiles
+cd ~/dotfiles
 
-# Unzip everything
-unzip dotfiles.zip -d /tmp/dotfiles
+# Back up existing configs
+for d in sway waybar swaync swaylock nvim kitty; do
+    [ -d ~/.config/$d ] && mv ~/.config/$d ~/.config/$d.bak
+done
+
+# Sway
+cp -r sway ~/.config/sway
+chmod +x ~/.config/sway/scripts/*.sh
+
+# Waybar
+cp -r waybar ~/.config/waybar
+
+# swaync (notification / control center)
+cp -r swaync ~/.config/swaync
+
+# swaylock
+cp -r swaylock ~/.config/swaylock
 
 # Neovim
-cp -r /tmp/dotfiles/nvim ~/.config/nvim
+cp -r nvim ~/.config/nvim
 
 # Kitty
-cp -r /tmp/dotfiles/kitty ~/.config/kitty
+cp -r kitty ~/.config/kitty
 
-# tmux (stored as tmux.conf, goes to home dir)
-cp /tmp/dotfiles/tmux/tmux.conf ~/.tmux.conf
-
-# Open Neovim — plugins install automatically (~1-2 min, needs internet)
-nvim
+# tmux
+cp tmux/tmux.conf ~/.tmux.conf
 ```
+
+> **Wallpaper** — the config expects `~/Downloads/creation_of_adam.jpeg`.
+> Change the `output * bg` line in `sway/config` to point at your own image.
+
+---
+
+## 3. Key Bindings (Sway)
+
+Direction keys are **vim-style** (`h j k l`).
+
+| Key | Action |
+|-----|--------|
+| `$mod+Return` | Terminal (kitty) |
+| `$mod+d` | App launcher (fuzzel) |
+| `$mod+Shift+q` | Close window |
+| `$mod+ctrl+l` | Lock screen |
+| `$mod+Shift+n` | Toggle notification / control center |
+| `$mod+Shift+v` | Clipboard history picker |
+| `$mod+Shift+c` | Reload Sway config |
+| `$mod+r` | Resize mode |
+| `$mod+f` | Fullscreen |
+| `$mod+Shift+space` | Toggle floating |
+| `Print` | Region screenshot → file |
+| `Shift+Print` | Region screenshot → clipboard |
+| `Ctrl+Print` | Full screen → file |
+| `Ctrl+Shift+Print` | Full screen → clipboard |
+
+Screenshots save to `~/Pictures/Screenshots/` with a timestamp and a swaync toast notification.
+
+---
+
+## 4. Waybar
+
+Floating pill bar at the top. Modules:
+
+- **Left** — workspaces (numbers), mode indicator, focused window title
+- **Center** — clock + date (`HH:MM — Day DD Mon`)
+- **Right** — CPU, RAM, audio, network, battery, notification bell, tray
+
+Left-click the bell to open the control center. Right-click to toggle Do Not Disturb.
+
+---
+
+## 5. swaync Control Center
+
+macOS-style slide-out panel. Open with `$mod+Shift+n` or the waybar bell.
+
+Contains: Do Not Disturb toggle · Volume slider · Brightness slider · Quick-action buttons (Network, Bluetooth, Display, Lock, Suspend, Logout) · Media player · Notification history.
+
+---
+
+## 6. Screen Lock
+
+`$mod+ctrl+l` or auto after **5 min** idle. The lock script takes a blurred screenshot as background (requires `grim` + `imagemagick`). Display turns off after **10 min**; locks before sleep.
 
 ---
 
 ## 7. First Launch Checklist
 
+- [ ] Sway starts without errors (`sway` from a TTY)
+- [ ] Waybar visible with clock showing
+- [ ] `$mod+Shift+n` opens the swaync panel
+- [ ] `Print` captures a region and saves to `~/Pictures/Screenshots/`
+- [ ] `$mod+ctrl+l` locks with blurred background
 - [ ] Neovim plugins installed (lazy.nvim auto-runs on first open)
 - [ ] No errors in `:checkhealth`
-- [ ] LSPs working — `:LspInfo` inside a code file (Mason auto-installs on file open)
-- [ ] Icons rendering (if broken, check terminal font setting)
-- [ ] tmux loads without errors — `tmux new`
-- [ ] Kitty opens with correct theme and font
